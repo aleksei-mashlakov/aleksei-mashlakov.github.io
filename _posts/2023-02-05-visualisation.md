@@ -1,7 +1,7 @@
 ---
 layout: distill
-title: Visualisation of mutivariate timeseries data with plotly
-description: an example of a distill-style blog post and main elements
+title: Visualisation of mutivariate timeseries data 
+description: an example of figures with plotly
 giscus_comments: true
 date: 2023-02-05
 
