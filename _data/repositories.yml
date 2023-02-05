@@ -1,12 +1,8 @@
 github_users:
-  - torvalds
-  - alshedivat
+  - aleksei-mashlakov
 
 github_repos:
-  - alshedivat/al-folio
-  - twbs/bootstrap
-  - jekyll/jekyll
-  - jquery/jquery
-  - FortAwesome/Font-Awesome
-  - jpswalsh/academicons
-  - mathjax/MathJax
+  - aleksei-mashlakov/flexibility-scheduling
+  - aleksei-mashlakov/multivariate-deep-learning
+  - aleksei-mashlakov/microgrid-resilience
+  - aleksei-mashlakov/LUT-beamer-presentation-template
