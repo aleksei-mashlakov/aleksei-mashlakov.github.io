@@ -60,6 +60,105 @@ _styles: >
 
 ---
 
+> 5 ways to visualise the data with plotly based on M6 competition data
+
+Visualization is an important tool for data analysis as it allows for the effective representation and communication of complex data sets. By using various types of charts, graphs, and maps, data analysts can quickly identify patterns and trends within the data, and make informed decisions based on that information. Additionally, visualizations can also be used to communicate data insights to others, making it an effective way to share findings and collaborate on data-driven projects. Overall, the ability to effectively visualize data can greatly enhance the efficiency and effectiveness of data analysis, and is a valuable skill for any data professional to possess.
+
+Visualization is particularly relevant to multivariate time series analysis, as it allows for the simultaneous examination of multiple variables over time. By using line charts, scatter plots, or heat maps, data analysts can easily identify patterns and correlations between different variables, and understand how they change over time. This is especially useful when working with large and complex data sets, as it can be difficult to make sense of the data without some form of visual representation.
+Additionally, visualization can also be used to display time-series forecasting models, which can be used to predict future trends and patterns, and make more informed decisions. Overall, the ability to effectively visualize multivariate time series data is an essential tool for any data analyst working with this type of data, as it allows for a more complete understanding of the underlying trends and patterns, and can greatly enhance the effectiveness of the analysis.
+
+There are several popular figures for multivariate visualization, including:
+
+ - **Scatter plots**: These plots are used to examine the relationship between two or more variables. They can be used to identify patterns and correlations, and are particularly useful for identifying outliers or unusual data points.
+
+ - **Line charts**: Line charts can be used to visualize changes in multiple variables over time. They are particularly useful for identifying trends and patterns, and can be used to compare the performance of multiple variables.
+
+ - **Heat maps**: Heat maps are used to visualize the relationship between two or more variables. They are particularly useful for identifying patterns and correlations, and can be used to compare the performance of multiple variables.
+
+ - **Parallel Coordinates Plots**: This is a special type of chart that can be used to visualize multivariate data. It allows you to see the distribution of multiple variables at once, and is particularly useful for identifying patterns and correlations between different variables
+
+ - **Small Multiples**: This is a technique of displaying multiple small plots of the same data, but with one variable varied across them. This way you can compare different variables against each other, and understand the relationship between them.
+
+ - **3D Plots**: 3D plots can be used to visualize data in three dimensions, and can be used to identify patterns and correlations between multiple variables.
+
+These are some of the most popular figures for multivariate visualization, but other types of figures can also be used depending on the specific data and analysis needs.
+
+In this story I diving into the visualization of multivariate time series data. The following analysis are described here to investigate the properties of multivariate time series data:
+
+
+Exploratory Spatial-Temporal Data Analysis (ESTDA) is a method of analyzing data that has both a spatial and a temporal component. It involves the use of various statistical and visualization techniques to examine patterns and trends in data that varies both in space and time. ESTDA can be applied to a wide range of data, such as environmental data, social data, financial data, and more.
+
+ESTDA is a crucial approach when the data is collected from different spatial and temporal scales, it helps to identify patterns, relationships, and anomalies that are specific to certain areas and time periods. For instance, it can be used to identify patterns of crime, population movement, and weather patterns, and to make more informed decisions about resource allocation, policy planning, and risk management.
+
+ESTDA can be applied to both continuous and categorical data, and can be used to study both individual data points and aggregate data. It typically involves a combination of statistical methods, spatial and temporal visualization techniques, and spatial and temporal modeling.
+
+ESTDA is a powerful tool for understanding complex data, and can provide valuable insights that would be difficult or impossible to uncover using traditional data analysis methods.
+
+To apply these techniques, we are going to explore the characteristics of selected 28 road links of the London Congestion Analysis Project (LCAP).
+
+### Non Spatio-temporal Data Patterns
+### Spatial patterns
+### Temporal patterns
+
+### First things first
+
+To set up the analysis environment, we start by importing the necessary dependencies.
+
+<script src="https://gist.github.com/aleksei-mashlakov/3ad26154dcf027c6b36dce40e02e288e.js"></script>
+
+
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.signal import convolve2d
+# read image
+image = np.array(Image.open("path/to/file.jpg").convert('L'))
+# apply convolution
+kernel = np.array([[-1, -1, -1],
+                   [ 0,  0,  0],
+                   [+1, +1, +1]])
+conv_output = convolve2d(image, kernel, mode='same')
+# display
+plt.figure(figsize=(15,5))
+plt.subplot(121), plt.imshow(image, cmap='gray'), plt.axis('off')
+plt.subplot(122), plt.imshow(np.abs(conv_output), cmap='gray'), plt.axis('off')
+plt.tight_layout()
+plt.show()
+```
+
+{% highlight c++ linenos %}
+  plt.figure(figsize=(15,5))
+  plt.subplot(121), plt.imshow(image, cmap='gray'), plt.axis('off')
+  plt.subplot(122), plt.imshow(np.abs(conv_output), cmap='gray'), plt.axis('off')
+  plt.tight_layout()
+  plt.show()
+{% endhighlight %}
+
+<d-code block language="python">
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.signal import convolve2d
+# read image
+image = np.array(Image.open("path/to/file.jpg").convert('L'))
+# apply convolution
+kernel = np.array([[-1, -1, -1],
+                   [ 0,  0,  0],
+                   [+1, +1, +1]])
+conv_output = convolve2d(image, kernel, mode='same')
+# display
+plt.figure(figsize=(15,5))
+plt.subplot(121), plt.imshow(image, cmap='gray'), plt.axis('off')
+plt.subplot(122), plt.imshow(np.abs(conv_output), cmap='gray'), plt.axis('off')
+plt.tight_layout()
+plt.show()
+</d-code>
+
+Further reading:
+  - [Exploratory Spatio-temporal Data Analysis and Visualisation (with R)](https://laurentlsantos.github.io/forecasting/exploratory-spatio-temporal-data-analysis-and-visualisation.html)
+
+[![Generic badge](https://img.shields.io/badge/License-MIT-blue.svg?style=plastic)](https://lbesson.mit-license.org/) [![Generic badge](https://img.shields.io/badge/acces_au_code-github-black.svg?style=plastic&logo=github)](https://github.com/julienguegan/notebooks_blog/blob/main/visualisation_CNN.ipynb)
+
+
 ## Equations
 
 This theme supports rendering beautiful math in inline and display modes using [MathJax 3](https://www.mathjax.org/) engine.
