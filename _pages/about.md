@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Moto. Etc.
+# subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Moto. Etc.
 
 profile:
   align: right
@@ -22,4 +22,10 @@ Write your biography here. Tell the world about yourself. Link to your favorite 
 
 Put your address / P.O. box / other info right below your picture. You can also disable any these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
 
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](http://fortawesome.github.io/Font-Awesome/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+I am a Researcher in Demand Response / Flexibility with focus in the Energy Forecasting and Operations Research at `Centrica`. My goal is to explore the technological means to enable coordinated participation of small-scale energy resources in energy markets and grid ancillary services for a more flexible, cost-efficient, and reliable operation of a low-carbon power system.
+
+I am interested in
+- Data-driven probabilistic energy forecasting
+- Multi-agent optimization under uncertainty
+- Power grid modeling
+- Energy informatics
