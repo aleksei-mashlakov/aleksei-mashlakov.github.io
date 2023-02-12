@@ -1,23 +1,16 @@
 ---
 layout: distill
-title: Visualisation of mutivariate timeseries data 
-description: an example of figures with plotly
-giscus_comments: true
+title: Exploratory data analysis of mutivariate time series data
+description: The secret to interactive visualization with plotly
+giscus_comments: false
 date: 2023-02-05
+tag: visualisation
 
-# authors:
-#   - name: Albert Einstein
-#     url: "https://en.wikipedia.org/wiki/Albert_Einstein"
-#     affiliations:
-#       name: IAS, Princeton
-#   - name: Boris Podolsky
-#     url: "https://en.wikipedia.org/wiki/Boris_Podolsky"
-#     affiliations:
-#       name: IAS, Princeton
-#   - name: Nathan Rosen
-#     url: "https://en.wikipedia.org/wiki/Nathan_Rosen"
-#     affiliations:
-#       name: IAS, Princeton
+authors:
+  - name: Aleksei Mashlakov
+    url: "https://aleksei-mashlakov.github.io/"
+    affiliations:
+      name: "-"
 
 # bibliography: 2018-12-22-distill.bib
 
@@ -28,383 +21,1112 @@ date: 2023-02-05
 #   - we may want to automate TOC generation in the future using
 #     jekyll-toc plugin (https://github.com/toshimaru/jekyll-toc).
 toc:
-  - name: Equations
-    # if a section has subsections, you can add them as follows:
-    # subsections:
-    #   - name: Example Child Subsection 1
-    #   - name: Example Child Subsection 2
-  - name: Citations
-  - name: Footnotes
-  - name: Code Blocks
-  - name: Interactive Plots
-  - name: Layouts
-  - name: Other Typography?
-
-# Below is an example of injecting additional post-specific styles.
-# If you use this post as a template, delete this _styles block.
-_styles: >
-  .fake-img {
-    background: #bbb;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 12px;
-  }
-  .fake-img p {
-    font-family: monospace;
-    color: white;
-    text-align: left;
-    margin: 12px 0;
-    text-align: center;
-    font-size: 16px;
-  }
-
+  - name: Motivation
+    subsections:
+      - name: Exploratory multivariate data analysis
+      - name: Multivariate time series visualization
+      - name: Types of exploratory analysis
+  - name: Data
+  - name: Distributional analysis
+    subsections:
+      - name: Box plot
+      - name: Ridge/Joy plot
+      - name: Mean/Var plot
+      - name: Q-Q plot
+      - name: Histogram plot
+  - name: Temporal analysis
+    subsections:
+      - name: Line plot with sliding window
+      - name: Heatmap plot
+      - name: Autocorrelation plots
+      - name: Scatter polar plot
+      - name: Lagged scatter plot
+      - name: Seasonal decomposition plot
+  - name: Spatial analysis
+    subsections:
+      - name: Correlation plot
+      - name: PPscore plot
 ---
 
-> 5 ways to visualise the data with plotly based on M6 competition data
 
-Visualization is an important tool for data analysis as it allows for the effective representation and communication of complex data sets. By using various types of charts, graphs, and maps, data analysts can quickly identify patterns and trends within the data, and make informed decisions based on that information. Additionally, visualizations can also be used to communicate data insights to others, making it an effective way to share findings and collaborate on data-driven projects. Overall, the ability to effectively visualize data can greatly enhance the efficiency and effectiveness of data analysis, and is a valuable skill for any data professional to possess.
+This post describes the types of visualisation for exploratory multivariate time series analysis and provides code snippets of such visualisations using [Plotly](https://plotly.com/python/) python library.
 
-Visualization is particularly relevant to multivariate time series analysis, as it allows for the simultaneous examination of multiple variables over time. By using line charts, scatter plots, or heat maps, data analysts can easily identify patterns and correlations between different variables, and understand how they change over time. This is especially useful when working with large and complex data sets, as it can be difficult to make sense of the data without some form of visual representation.
-Additionally, visualization can also be used to display time-series forecasting models, which can be used to predict future trends and patterns, and make more informed decisions. Overall, the ability to effectively visualize multivariate time series data is an essential tool for any data analyst working with this type of data, as it allows for a more complete understanding of the underlying trends and patterns, and can greatly enhance the effectiveness of the analysis.
-
-There are several popular figures for multivariate visualization, including:
-
- - **Scatter plots**: These plots are used to examine the relationship between two or more variables. They can be used to identify patterns and correlations, and are particularly useful for identifying outliers or unusual data points.
-
- - **Line charts**: Line charts can be used to visualize changes in multiple variables over time. They are particularly useful for identifying trends and patterns, and can be used to compare the performance of multiple variables.
-
- - **Heat maps**: Heat maps are used to visualize the relationship between two or more variables. They are particularly useful for identifying patterns and correlations, and can be used to compare the performance of multiple variables.
-
- - **Parallel Coordinates Plots**: This is a special type of chart that can be used to visualize multivariate data. It allows you to see the distribution of multiple variables at once, and is particularly useful for identifying patterns and correlations between different variables
-
- - **Small Multiples**: This is a technique of displaying multiple small plots of the same data, but with one variable varied across them. This way you can compare different variables against each other, and understand the relationship between them.
-
- - **3D Plots**: 3D plots can be used to visualize data in three dimensions, and can be used to identify patterns and correlations between multiple variables.
-
-These are some of the most popular figures for multivariate visualization, but other types of figures can also be used depending on the specific data and analysis needs.
-
-In this story I diving into the visualization of multivariate time series data. The following analysis are described here to investigate the properties of multivariate time series data:
-
-
-Exploratory Spatial-Temporal Data Analysis (ESTDA) is a method of analyzing data that has both a spatial and a temporal component. It involves the use of various statistical and visualization techniques to examine patterns and trends in data that varies both in space and time. ESTDA can be applied to a wide range of data, such as environmental data, social data, financial data, and more.
-
-ESTDA is a crucial approach when the data is collected from different spatial and temporal scales, it helps to identify patterns, relationships, and anomalies that are specific to certain areas and time periods. For instance, it can be used to identify patterns of crime, population movement, and weather patterns, and to make more informed decisions about resource allocation, policy planning, and risk management.
-
-ESTDA can be applied to both continuous and categorical data, and can be used to study both individual data points and aggregate data. It typically involves a combination of statistical methods, spatial and temporal visualization techniques, and spatial and temporal modeling.
-
-ESTDA is a powerful tool for understanding complex data, and can provide valuable insights that would be difficult or impossible to uncover using traditional data analysis methods.
-
-To apply these techniques, we are going to explore the characteristics of selected 28 road links of the London Congestion Analysis Project (LCAP).
-
-### Non Spatio-temporal Data Patterns
-### Spatial patterns
-### Temporal patterns
-
-### First things first
-
-To set up the analysis environment, we start by importing the necessary dependencies.
-
-<script src="https://gist.github.com/aleksei-mashlakov/3ad26154dcf027c6b36dce40e02e288e.js"></script>
-
-
-```python
-import matplotlib.pyplot as plt
-import numpy as np
-from scipy.signal import convolve2d
-# read image
-image = np.array(Image.open("path/to/file.jpg").convert('L'))
-# apply convolution
-kernel = np.array([[-1, -1, -1],
-                   [ 0,  0,  0],
-                   [+1, +1, +1]])
-conv_output = convolve2d(image, kernel, mode='same')
-# display
-plt.figure(figsize=(15,5))
-plt.subplot(121), plt.imshow(image, cmap='gray'), plt.axis('off')
-plt.subplot(122), plt.imshow(np.abs(conv_output), cmap='gray'), plt.axis('off')
-plt.tight_layout()
-plt.show()
-```
-
-{% highlight c++ linenos %}
-  plt.figure(figsize=(15,5))
-  plt.subplot(121), plt.imshow(image, cmap='gray'), plt.axis('off')
-  plt.subplot(122), plt.imshow(np.abs(conv_output), cmap='gray'), plt.axis('off')
-  plt.tight_layout()
-  plt.show()
-{% endhighlight %}
-
-<d-code block language="python">
-import matplotlib.pyplot as plt
-import numpy as np
-from scipy.signal import convolve2d
-# read image
-image = np.array(Image.open("path/to/file.jpg").convert('L'))
-# apply convolution
-kernel = np.array([[-1, -1, -1],
-                   [ 0,  0,  0],
-                   [+1, +1, +1]])
-conv_output = convolve2d(image, kernel, mode='same')
-# display
-plt.figure(figsize=(15,5))
-plt.subplot(121), plt.imshow(image, cmap='gray'), plt.axis('off')
-plt.subplot(122), plt.imshow(np.abs(conv_output), cmap='gray'), plt.axis('off')
-plt.tight_layout()
-plt.show()
-</d-code>
-
-Further reading:
-  - [Exploratory Spatio-temporal Data Analysis and Visualisation (with R)](https://laurentlsantos.github.io/forecasting/exploratory-spatio-temporal-data-analysis-and-visualisation.html)
-
-[![Generic badge](https://img.shields.io/badge/License-MIT-blue.svg?style=plastic)](https://lbesson.mit-license.org/) [![Generic badge](https://img.shields.io/badge/acces_au_code-github-black.svg?style=plastic&logo=github)](https://github.com/julienguegan/notebooks_blog/blob/main/visualisation_CNN.ipynb)
-
-
-## Equations
-
-This theme supports rendering beautiful math in inline and display modes using [MathJax 3](https://www.mathjax.org/) engine.
-You just need to surround your math expression with `$$`, like `$$ E = mc^2 $$`.
-If you leave it inside a paragraph, it will produce an inline expression, just like $$ E = mc^2 $$.
-
-To use display mode, again surround your expression with `$$` and place it as a separate paragraph.
-Here is an example:
-
-$$
-\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)
-$$
-
-Note that MathJax 3 is [a major re-write of MathJax](https://docs.mathjax.org/en/latest/upgrading/whats-new-3.0.html) that brought a significant improvement to the loading and rendering speed, which is now [on par with KaTeX](http://www.intmath.com/cg5/katex-mathjax-comparison.php).
-
-***
-
-## Citations
-
-Citations are then used in the article body with the `<d-cite>` tag.
-The key attribute is a reference to the id provided in the bibliography.
-The key attribute can take multiple ids, separated by commas.
-
-The citation is presented inline like this: <d-cite key="gregor2015draw"></d-cite> (a number that displays more information on hover).
-If you have an appendix, a bibliography is automatically created and populated in it.
-
-Distill chose a numerical inline citation style to improve readability of citation dense articles and because many of the benefits of longer citations are obviated by displaying more information on hover.
-However, we consider it good style to mention author last names if you discuss something at length and it fits into the flow well — the authors are human and it’s nice for them to have the community associate them with their work.
-
-***
-
-## Footnotes
-
-Just wrap the text you would like to show up in a footnote in a `<d-footnote>` tag.
-The number of the footnote will be automatically generated.<d-footnote>This will become a hoverable footnote.</d-footnote>
-
-***
-
-## Code Blocks
-
-Syntax highlighting is provided within `<d-code>` tags.
-An example of inline code snippets: `<d-code language="html">let x = 10;</d-code>`.
-For larger blocks of code, add a `block` attribute:
-
-<d-code block language="javascript">
-  var x = 25;
-  function(x) {
-    return x * x;
-  }
-</d-code>
-
-**Note:** `<d-code>` blocks do not look good in the dark mode.
-You can always use the default code-highlight using the `highlight` liquid tag:
-
-{% highlight javascript %}
-var x = 25;
-function(x) {
-  return x * x;
-}
-{% endhighlight %}
-
-***
-
-## Interactive Plots
-
-You can add interative plots using plotly + iframes :framed_picture:
-
-<div class="l-page">
-  <iframe src="{{ '/assets/plotly/demo.html' | relative_url }}" frameborder='0' scrolling='no' height="500px" width="100%" style="border: 1px dashed grey;"></iframe>
+<div class="row justify-content-sm-center">
+    <div class="col-sm-8 mt-3 mt-md-0">
+        {% include figure.html path="assets/img/backgrounds/data_space_time.png" title="A 3D render of data varying in space and time. Generated by DALL-E-II" class="img-fluid rounded z-depth-1" width='700'  height='300' %}
+    </div>
+</div>
+<div class="caption">
+    A 3D render of data varying in space and time. Generated by DALL-E-II
 </div>
 
-The plot must be generated separately and saved into an HTML file.
-To generate the plot that you see above, you can use the following code snippet:
+## Motivation
 
-{% highlight python %}
-import pandas as pd
-import plotly.express as px
-df = pd.read_csv(
-  'https://raw.githubusercontent.com/plotly/datasets/master/earthquakes-23k.csv'
+> "There's nothing like seeing for oneself". ― Japanese proverb
+
+### Exploratory multivariate data analysis
+
+**Multivariate time series data** refers to a set of observations of multiple variables measured over time. It is a type of data that is characterized by multiple variables recorded at regular intervals, such as daily, weekly, or monthly. In contrast to univariate time series data, which only contains observations for a single variable, multivariate time series data contains observations for multiple variables.
+
+For example, a multivariate time series dataset might contain observations of temperature, rainfall, and wind speed recorded daily for a particular region or multiple areas over the course of several years. Each observation in the dataset would contain values for all three variables at a given time, and the data would be ordered by time.
+
+**Exploratory multivariate data analysis** is a type of statistical analysis that aims to summarize, visualize and understand complex relationships among multiple variables in a dataset. The goal of exploratory multivariate data analysis is to uncover patterns, relationships, and insights that may not be evident or hard to get from univariate or bivariate analyses. This analysis helps to identify patterns, relationships, and anomalies that are specific to certain variables and time periods.
+
+### Multivariate time series visualization
+
+**Visualization** is an important tool for exploratory data analysis as it allows for the effective representation and communication of complex data sets. By using various types of charts, graphs, and maps, data analysts can do two major things:
+
+  1. *identify patterns and trends within the data*, and make informed decisions based on that information.
+  2. *communicate data insights to others*, making it an effective way to share findings and collaborate on data-driven projects. 
+
+Visualization is particularly relevant to multivariate time series analysis, as it allows for the simultaneous examination of multiple variables over time. By using line charts, scatter plots, or heat maps, data analysts can easily identify patterns and relationships between different variables, and understand how they change over time. This is especially useful when working with large and complex data sets, as it can be difficult to make sense of the data without some form of visual representation.
+
+Overall, the ability to effectively visualize data can greatly enhance the efficiency and effectiveness of data analysis, and is a valuable skill for any data professional to possess.
+
+### Types of exploratory analysis
+
+The exploratory data analysis of multivariate data can be categorized to the following visualization types that are explored in this post: 
+
+ - [**Distributional analysis**](#distributional-analysis)
+ - [**Temporal analysis**](#temporal-analysis)
+ - [**Spatial analysis**](#spatial-analysis)
+
+Before diving into each category, let's prepare the dataset for the visualisation examples.
+
+## Data 
+
+The exploratory data analysis can be applied to a wide range of data, such as environmental data, energy data, social data, financial data, and more. In this post, the financial data from the latest [M6 Financial Forecasting Competition](https://m6competition.com/) are used:
+
+```python
+import yfinance as yf
+
+#The M6 asset universe
+assets = [
+  "ABBV","ACN","AEP","AIZ","ALLE","AMAT","AMP","AMZN","AVB","AVY",
+  "AXP","BDX","BF-B","BMY","BR","CARR","CDW","CE","CHTR","CNC",
+  "CNP","COP","CTAS","CZR","DG","DPZ","DRE","DXC","META","FTV",
+  "GOOG","GPC","HIG","HST","JPM","KR","OGN","PG","PPL","PRU",
+  "PYPL","RE","ROL","ROST","UNH","URI","V","VRSK","WRK","XOM",
+  "IVV","IWM","EWU","EWG","EWL","EWQ","IEUS","EWJ","EWT","MCHI",
+  "INDA","EWY","EWA","EWH","EWZ","EWC","IEMG","LQD","HYG","SHY",
+  "IEF","TLT","SEGA.L","IEAA.L","HIGH.L","JPEA.L","IAU","SLV","GSG","REET",
+  "ICLN","IXN","IGF","IUVL.L","IUMO.L","SPMV.L","IEVL.L","IEFM.L","MVEU.L",
+  "XLK","XLF","XLV","XLE","XLY","XLI","XLC","XLU","XLP","XLB","VXX"]
+
+#Download historical data (select starting date)
+starting_date = "2015-01-01"
+
+data = yf.download(assets, start=starting_date, ignore_tz=True)
+prices = data['Adj Close']
+```
+
+Let's visualize the missing data in the dataset:
+
+<div class="l-body-outset">
+  <iframe src="{{ '/assets/plotly/eda/missing_data.html' | relative_url }}" frameborder='0' scrolling='no' height="650px" width="100%" style="border: 1px dashed grey;"></iframe>
+</div>
+
+The horizontal lines are likely to indicate bank holidays, while vertical lines indicate times when the stocks were not traded and hence not present in the dataset. <d-footnote> DRE (Duke Realty Corp) stock is not traded since Sep 30th, 2022. Its full absence is likely caused by yfinance download</d-footnote>
+
+Let's fill the missing values and transform the adjusted close prices to the target data. The target data for the forecasting part of the competition is the percentage return of adjusted close price over four weeks period.
+
+```python
+def calculate_pct_returns(x: pd.Series, periods: int) -> pd.Series:
+    return 1 + x.pct_change(periods=periods)
+
+# fill missing values
+prices = (prices.dropna(how="all", axis=1).fillna(method="ffill").fillna(method="bfill"))
+
+target_data = prices.apply(calculate_pct_returns, periods=20, axis=0).dropna()
+```
+
+## Distributional analysis
+
+Distributional analysis is a statistical technique used to examine the distribution of a set of data. It involves studying the shape, central tendency, spread, and other features of the distribution of a variable, and making inferences about the underlying population from which the data was sampled.
+
+The goal of distributional analysis is to understand the underlying pattern of the data and how it varies across different groups or conditions.
+
+### Box plot
+
+A box plot, also known as a box and whisker plot, is a type of data visualization that displays the distribution of a set of continuous or ordinal data. It provides a compact and informative summary of the data by displaying the median, quartiles, and outliers of the data in a single plot.
+
+A box plot consists of a box that represents the interquartile range (IQR) of the data, which encompasses the middle 50% of the data. The box is drawn from the first quartile (25th percentile) to the third quartile (75th percentile), and the line inside the box represents the median (50th percentile) of the data. The "whiskers" extending from the box represent the range of the data, excluding outliers, which are plotted as individual points outside the whiskers.
+
+Box plots are widely used to compare the distribution of multiple variables, to identify outliers, and to detect skewness or symmetry in the data. By visualizing the quartiles, median, and outliers, box plots provide a concise and interpretable summary of the distribution of the data.
+
+<div class="l-body-outset">
+  <iframe src="{{ '/assets/plotly/eda/box.html' | relative_url }}" frameborder='0' scrolling='no' height="400px" width="100%" style="border: 1px dashed grey;"></iframe>
+</div>
+
+{::options parse_block_html="true" /}
+<details>
+  <summary markdown="span">Click me to see the code</summary>
+
+##### Box plot
+
+  ```python
+df = target_data.copy()
+fig = go.Figure()
+N = len(df.columns)     # Number of boxes
+# generate an array of rainbow colors by fixing the saturation and lightness of the HSL
+# representation of colour and marching around the hue.
+# Plotly accepts any CSS color format, see e.g. http://www.w3schools.com/cssref/css_colors_legal.asp.
+c = ['hsl('+str(h)+',50%'+',50%)' for h in np.linspace(0, 360, N)]
+
+for i, column in enumerate(df.columns[:]):
+    fig.add_trace(go.Box(y=df[column], name=column,  marker_color=c[i]))
+    
+# format the layout
+fig.update_layout(
+    legend=dict(orientation="v", yanchor="bottom", y=0.1, xanchor="right", x=1.15),
+    title="Box plot",
+    width=800,
+    height=400,
+    font=dict(family="Gravitas One", size=12, color="black"),
 )
-fig = px.density_mapbox(
-  df,
-  lat='Latitude',
-  lon='Longitude',
-  z='Magnitude',
-  radius=10,
-  center=dict(lat=0, lon=180),
-  zoom=0,
-  mapbox_style="stamen-terrain",
+fig.update_xaxes(tickangle=-90)
+fig.update_yaxes(title="Returns, [pu]")
+fig.show()
+  ```
+
+</details>
+
+### Ridge/Joy plot
+
+Ridge/Joy plot grouped by months
+
+A Ridge or Joy plot is a type of data visualization that displays a set of overlapping line segments to represent the distribution of a set of continuous or ordinal data. The plot is named after its inventor, Norman B. Joy, who first introduced it in the 1930s.
+
+The Ridge plot displays the distribution of the data over the range of values, with the height of the line segments indicating the density of data points at a given value. Ridge plots can be used to visualize the distribution of a single variable and to compare the distributions of multiple variables. Ridge plots are particularly useful for visualizing complex data distributions, where the shape of the distribution is not easily summarized by a single statistic like the mean or median. 
+
+In the example below, the Ridge plot is used to compare densities of asset distributions per specific month.
+
+<div class="l-body-outset">
+  <iframe src="{{ '/assets/plotly/eda/ridge.html' | relative_url }}" frameborder='0' scrolling='no' height="800px" width="100%" style="border: 1px dashed grey;"></iframe>
+</div>
+
+
+<details>
+  <summary markdown="span">Click me to see the code</summary>
+
+##### Ridge/Joy plot
+
+  ```python
+import plotly.graph_objects as go
+from plotly.colors import n_colors
+import numpy as np
+
+months = target_data.index.month.unique().to_list()
+colors = n_colors('rgb(5, 200, 200)', 'rgb(200, 10, 10)', len(months), colortype='rgb')
+# fig = make_subplots(rows=100, cols=1, vertical_spacing=0.01, shared_xaxes=True)
+
+i = 1
+fig = go.Figure()
+for column in target_data.columns.to_list()[::-1]:
+    for j in range(len(months)):
+        data_line = target_data.loc[target_data.index.month==months[j], column].dropna().T
+        fig.add_trace(go.Violin(x=data_line, legendgroup=months[j], scalegroup=months[j], line_color=colors[j], name=f'{column}'))
+    i+=1
+
+fig.update_traces(orientation='h', side='positive', width=2, points=False)
+fig.update_layout(xaxis_showgrid=False, xaxis_zeroline=False)
+fig.update_layout(violingap=0, violinmode='overlay')
+fig.update_layout(
+    title="Ridgeline/Joy plot",
+    width=800,
+    height=800,
+    font=dict(family="Gravitas One", size=12, color="black"),
 )
 fig.show()
-fig.write_html('assets/plotly/demo.html')
-{% endhighlight %}
+  ```
 
-***
+</details>
 
-## Layouts
 
-The main text column is referred to as the body.
-It is the assumed layout of any direct descendants of the `d-article` element.
+### Mean/Var plot
 
-<div class="fake-img l-body">
-  <p>.l-body</p>
+A Mean/Var scatter plot is a type of scatter plot where the x-axis represents the mean of the data, the y-axis represents the variable category, and a single dot size shows variance of the data. It is used to visualize the relationship between the mean and variance of a set of data, and can provide insights into the distribution of the data.
+
+As for the Ridge plot, the points of Mean Var plot are grouped by the month.
+
+<div class="l-body-outset">
+  <iframe src="{{ '/assets/plotly/eda/mean_var.html' | relative_url }}" frameborder='0' scrolling='no' height="400px" width="100%" style="border: 1px dashed grey;"></iframe>
 </div>
 
-For images you want to display a little larger, try `.l-page`:
 
-<div class="fake-img l-page">
-  <p>.l-page</p>
+<details>
+  <summary markdown="span">Click me to see the code</summary>
+
+##### Mean/Var plot
+
+  ```python
+import plotly.express as px
+
+df = target_data.dropna()
+df = (
+    df.groupby([df.index.month_name()])
+    .agg({k: ["mean", "var"] for k in df.columns})
+    .unstack(1)
+    .unstack(1)
+    .reset_index()
+    .rename(columns={"level_0": "ticker", "Date": "Month"})
+)
+n_colors = 12
+colors = px.colors.sample_colorscale(
+    "plasma", [n / (n_colors - 1) for n in range(n_colors)]
+)
+
+df["Month"] = df["Month"].astype("category")
+
+fig = px.scatter(
+    df,
+    x="mean",
+    y="ticker",
+    color="Month",
+    size="var",
+    size_max=45,
+    log_x=False,
+    color_discrete_sequence=colors,
+)
+
+fig.update_xaxes(showline=True, linewidth=0.01, linecolor="grey", gridcolor="grey")
+fig.update_yaxes(showline=True, linewidth=0.01, linecolor="grey", gridcolor="grey")
+fig.update_layout(
+    legend=dict(orientation="v", yanchor="bottom", y=0.05, xanchor="right", x=1.05),
+    title="Mean/ Variance scatter plot",
+    width=800,
+    height=400,
+    font=dict(family="Gravitas One", size=12, color="black"),
+)
+fig.show()
+  ```
+
+</details>
+
+
+### Q-Q plot
+
+A Quantile-Quantile (Q-Q) plot is a graphical representation of the comparison between two sets of data. It plots the quantiles of one dataset against the quantiles of another dataset to check if they are drawn from the same underlying distribution. If the two datasets come from the same underlying distribution, the points in the Q-Q plot will form a roughly straight line, which indicates that the quantiles of the two datasets are proportional to each other. Deviations from this straight line can indicate differences between the distributions.
+
+Q-Q plots can also be used to check if a dataset follows a specific theoretical distribution, such as a normal or exponential distribution. In that case, the quantiles of the data set are plotted against the corresponding quantiles of the theoretical distribution.
+
+Here are some key steps for interpreting a Q-Q plot:
+
+  * **Check the shape of the plot**: If the data set fits the theoretical distribution, the points on the Q-Q plot should lie on a straight line. If the points deviate from the straight line, it indicates that the data set does not fit the theoretical distribution.
+
+  * **Assess the deviation from the line**: If the points deviate from the straight line, the degree of deviation can be used to assess the goodness of fit of the data set to the theoretical distribution. If the points deviate substantially from the straight line, it indicates a poor fit, while if the points deviate only slightly from the line, it indicates a good fit.
+
+  * **Check for outliers**: Outliers can be identified on the Q-Q plot as points that deviate significantly from the straight line. Outliers can have a substantial impact on the fit of the data set to the theoretical distribution and may need to be removed or handled differently in further analysis.
+
+  * **Check for skewness**: If the data set is skewed, a skewed data set will result in a curved shape of the points on the plot, rather than a straight line. The direction of the curve will indicate the direction of the skew, with a curve to the right indicating positive skew and a curve to the left indicating negative skew.
+
+<div class="l-body-outset">
+  <iframe src="{{ '/assets/plotly/eda/qq_plot.html' | relative_url }}" frameborder='0' scrolling='no' height="700px" width="100%" style="border: 1px dashed grey;"></iframe>
 </div>
 
-All of these have an outset variant if you want to poke out from the body text a little bit.
-For instance:
 
-<div class="fake-img l-body-outset">
-  <p>.l-body-outset</p>
+<details>
+  <summary markdown="span">Click me to see the code</summary>
+
+##### QQ plot
+
+  ```python
+import itertools
+from plotly.express.colors import sample_colorscale
+from plotly.subplots import make_subplots
+from statsmodels.graphics.gofplots import qqplot
+
+df = target_data.iloc[-365:]
+
+x = np.linspace(0, 1, len(df.columns))
+c = sample_colorscale('rainbow', list(x), colortype='rgb')
+
+
+fig = go.Figure()
+
+for i, column in enumerate(df.columns.to_list()):
+    series = df[column]
+    qqplot_data = qqplot(series, line='s').gca().lines
+    fig.add_trace({
+        'type': 'scatter',
+        'x': qqplot_data[0].get_xdata(),
+        'y': qqplot_data[0].get_ydata(),
+        'mode': 'markers',
+        'marker': {
+            'color': c[i]
+        },
+        'legendgroup': column, 
+        'name': column, 
+        'showlegend': True
+    })
+
+    fig.add_trace({
+        'type': 'scatter',
+        'x': qqplot_data[1].get_xdata(),
+        'y': qqplot_data[1].get_ydata(),
+        'mode': 'lines',
+        'line': {
+            'color': c[i]
+        },
+        'legendgroup': column, 
+        'name': column, 
+        'showlegend': False
+
+    })
+
+fig['layout'].update({
+    'title': 'Quantile-Quantile Plot',
+    'xaxis': {
+        'title': 'Theoritical Quantities',
+        'zeroline': False
+    },
+    'yaxis': {
+        'title': 'Sample Quantities'
+    },
+    'showlegend': False,
+    'width': 800,
+    'height': 700,
+})
+
+
+fig.show()
+  ```
+
+</details>
+
+### Histogram plot
+
+A histogram is a graphical representation of data that groups data points into ranges and displays the frequency of data points within each range as bars. The x-axis of a histogram plot represents the range of values in the data, and the y-axis represents the frequency or count of data points within each range. The ranges are usually specified as bins, and the height of each bar represents the number of data points in the corresponding bin.
+
+Histograms are used to visualize the distribution of a set of continuous or discrete data, and can provide information about the central tendency, skewness, and spread of the data. By comparing histograms of different datasets, one can gain insights into the similarities and differences between the data distributions.
+
+<div class="l-body-outset">
+  <iframe src="{{ '/assets/plotly/eda/hist.html' | relative_url }}" frameborder='0' scrolling='no' height="700px" width="100%" style="border: 1px dashed grey;"></iframe>
 </div>
 
-<div class="fake-img l-page-outset">
-  <p>.l-page-outset</p>
+
+<details>
+  <summary markdown="span">Click me to see the code</summary>
+
+##### Histogram plot
+
+  ```python
+import plotly.graph_objects as go
+
+import numpy as np
+
+df = target_data.copy()
+
+fig = go.Figure()
+for column in df.columns:
+    fig.add_trace(go.Histogram(
+        x=df[column],
+        cumulative_enabled=False,
+        histnorm='percent',
+        name=column, # name used in legend and hover labels
+    ))
+
+fig.update_layout(
+    title_text='Histogram plot', # title of plot
+    xaxis_title_text='Value', # xaxis label
+    yaxis_title_text='Count', # yaxis label
+)
+fig.update_layout(barmode='overlay')
+fig.update_xaxes(range=[0,3])
+fig.show()
+  ```
+
+</details>
+
+
+## Temporal analysis
+
+The goal of temporal analysis is to understand how the behavior of a variable changes over time and to identify any underlying patterns or trends in the data.
+
+### Line plot with sliding window
+
+A line plot for temporal analysis is a type of data visualization that displays the change in a continuous or ordinal variable over time. Line plots provide a simple and intuitive way to understand how a variable changes over time, and to identify trends, patterns, and outliers in the data.
+
+In a line plot, the x-axis is usually a time-based variable, such as date, time, or an index. The y-axis represents the value of the variable.
+
+The example shows an advanced version of the line plot with sliding window. 
+
+<div class="l-body-outset">
+  <iframe src="{{ '/assets/plotly/eda/sliding.html' | relative_url }}" frameborder='0' scrolling='no' height="650px" width="100%" style="border: 1px dashed grey;"></iframe>
 </div>
 
-Occasionally you’ll want to use the full browser width.
-For this, use `.l-screen`.
-You can also inset the element a little from the edge of the browser by using the inset variant.
+If you zoom in the year 2022, then you will see a periodic multivariate variations resambling a signal of unstable system with increasing amplitude.
 
-<div class="fake-img l-screen">
-  <p>.l-screen</p>
+If you have a high granularity data over a long time period, line plots often overloads the memory and crash you IDE. In that case, [plotly-resampler](https://github.com/predict-idlab/plotly-resampler) library can serve the purpose.
+
+<details>
+  <summary markdown="span">Click me to see the code</summary>
+
+### Line plot with sliding window code
+
+  ```python
+  df = target_data.copy()
+  df["Mean"] = df.mean(axis=1)
+  df = df.reset_index().rename(columns={"index": "Date"})
+
+  fig = px.line(
+      df,
+      x="Date",
+      y=df.columns[1:],
+      hover_data={"Date": "|%B %d, %Y"},
+      title="Sliding window",
+  )
+
+  fig.update_xaxes(
+      rangeslider_visible=True,
+      rangeselector=dict(
+          buttons=list(
+              [
+                  dict(count=1, label="1m", step="month", stepmode="backward"),
+                  dict(count=6, label="6m", step="month", stepmode="backward"),
+                  dict(count=1, label="YTD", step="year", stepmode="todate"),
+                  dict(count=1, label="1y", step="year", stepmode="backward"),
+                  dict(step="all"),
+              ]
+          )
+      ),
+  )
+  fig.update_layout(
+      xaxis_tickformatstops=[
+          dict(dtickrange=[None, 1000], value="%H:%M:%S.%L ms"),
+          dict(dtickrange=[1000, 60000], value="%H:%M:%S s"),
+          dict(dtickrange=[60000, 3600000], value="%H:%M m"),
+          dict(dtickrange=[3600000, 86400000], value="%H:%M h"),
+          dict(dtickrange=[86400000, 604800000], value="%e. %b d"),
+          dict(dtickrange=[604800000, "M1"], value="%e. %b w"),
+          dict(dtickrange=["M1", "M12"], value="%b '%y M"),
+          dict(dtickrange=["M12", None], value="%Y Y"),
+      ],
+      margin=dict(l=50, r=0, t=50, b=50),
+      font=dict(family="Gravitas One", size=12, color="black"),
+  )
+  fig.update_yaxes(
+      range=[0.0, 3.0],
+  )
+
+  fig.show()
+  ```
+
+</details>
+
+### Heatmap plot
+
+A heatmap plot is a type of data visualization that displays a matrix of data values as a grid of colored cells, where the color of each cell represents the magnitude of a specific data value. It is particularly useful for visualizing and analyzing multivariate datasets, where multiple variables are measured for each data point.
+
+<div class="l-body-outset">
+  <iframe src="{{ '/assets/plotly/eda/heatmap.html' | relative_url }}" frameborder='0' scrolling='no' height="650px" width="100%" style="border: 1px dashed grey;"></iframe>
 </div>
-<div class="fake-img l-screen-inset">
-  <p>.l-screen-inset</p>
+
+<details>
+  <summary markdown="span">Click me to see the code</summary>
+
+### Heatmap plot code
+
+  ```python
+import plotly.express as px
+df = target_data.copy()
+fig = px.imshow(df.T, 
+                color_continuous_scale="Cividis_r", 
+                origin='upper', 
+                title="Heatmap plot",
+                range_color=(0.5,1.75)
+               )
+# update layout for xaxis tickmode as linear
+fig.update_layout(
+   yaxis = dict(
+      tickfont=dict(family='Helvetica', size=8, color='black')
+   ),
+   font=dict(family="Gravitas One", size=12, color="black"),
+)
+fig.show()
+  ```
+
+</details>
+
+### Autocorrelation plots
+
+Autocorrelation plots, also known as ACF (autocorrelation function) plots, are a type of data visualization used to analyze the relationships between the values of a time-series data. Autocorrelation plots display the relationship between the values of a time-series data and its lagged values, with the lagged values representing the values of the time-series data at previous N time steps.
+
+In an autocorrelation plot, the x-axis represents the lags, and the y-axis represents the correlation between the values of the time-series data and its lagged values. A positive correlation between the values and their lags indicates a trend or pattern in the data, while a negative correlation indicates an opposing trend or pattern.
+
+Like autocorrelation plots, partial autocorrelation plots (PACF) display the relationship between the values of a time-series data and its lagged values. However, unlike autocorrelation plots, partial autocorrelation plots only display the relationship between the values and their lagged values neglecting the effect of shorter lags.
+
+For the autocorrelation plots, there are three options to use:
+
+ - [**Heatmap autocorrelation plot**](#heatmap-autocorrelation-plot)
+ - [**Scatter autocorrelation plot**](#scatter-autocorrelation-plot)
+ - [**3D autocorrelation plot**](#3d-autocorrelation-plot)
+
+Below, you can see these visualizations for the dataset. What is your favorite?
+
+#### Heatmap autocorrelation plot
+
+<div class="l-body-outset">
+  <iframe src="{{ '/assets/plotly/eda/acf_pcf1.html' | relative_url }}" frameborder='0' scrolling='no' height="850px" width="100%" style="border: 1px dashed grey;"></iframe>
 </div>
 
-The final layout is for marginalia, asides, and footnotes.
-It does not interrupt the normal flow of `.l-body` sized text except on mobile screen sizes.
+<details>
+  <summary markdown="span">Click me to see the code</summary>
 
-<div class="fake-img l-gutter">
-  <p>.l-gutter</p>
+##### Heatmap autocorrelation plot code
+
+  ```python
+  fig = make_subplots(
+      2,
+      1,
+      shared_xaxes=True,
+      shared_yaxes=False,
+      subplot_titles=(
+          "Plot 1",
+          "Plot 2",
+      ),
+      vertical_spacing=0.1,
+  )
+  names = {"Plot 1": "Autocorrelation (ACF)", "Plot 2": "Partial Autocorrelation (PACF)"}
+
+
+  fig.add_trace(
+      go.Heatmap(
+          z=df_acf.T,
+          y=df_acf.T.index,
+          x=df_acf.T.columns,
+          colorscale="Rainbow",
+          coloraxis="coloraxis1",
+      ),
+      row=1,
+      col=1,
+  )
+
+  fig.add_trace(
+      go.Heatmap(
+          z=df_pacf.T,
+          y=df_acf.T.index,
+          x=df_acf.T.columns,
+          colorscale="Rainbow",
+          coloraxis="coloraxis1",
+      ),
+      row=2,
+      col=1,
+  )
+
+  fig.update_layout(
+      height=800,
+      width=800,
+      title_text="ACF and PACF",
+      xaxis2_title="Time lag, [days]",
+      yaxis_title="Ticker, [idx]",
+      yaxis2_title="Ticker, [idx]",
+      legend_title="Legend",
+      showlegend=False,
+      margin=dict(l=50, r=0, t=50, b=50),
+      font=dict(family="Gravitas One", size=12, color="black"),
+      yaxis1_nticks=40,
+      yaxis2_nticks=40,
+      yaxis1=dict(tickfont=dict(family="Helvetica", size=8, color="black")),
+      yaxis2=dict(tickfont=dict(family="Helvetica", size=8, color="black")),
+      coloraxis1_colorbar=dict(
+          thickness=20.0,
+          title="",
+      ),
+  )
+
+  fig.for_each_annotation(lambda a: a.update(text=names[a.text]))
+  fig.show()
+  ```
+
+</details>
+
+#### Scatter autocorrelation plot
+
+<div class="l-body-outset">
+  <iframe src="{{ '/assets/plotly/eda/acf_pacf_2d.html' | relative_url }}" frameborder='0' scrolling='no' height="850px" width="100%" style="border: 1px dashed grey;"></iframe>
 </div>
 
-***
+<details>
+  <summary markdown="span">Click me to see the code</summary>
 
-## Other Typography?
+##### Scatter autocorrelation plot code
 
-Emphasis, aka italics, with *asterisks* (`*asterisks*`) or _underscores_ (`_underscores_`).
+modified from [here](https://community.plotly.com/t/plot-pacf-plot-acf-autocorrelation-plot-and-lag-plot/24108/3)
 
-Strong emphasis, aka bold, with **asterisks** or __underscores__.
+  ```python
+  from plotly.express.colors import sample_colorscale
+  x = np.linspace(0, 1, len(target_data.columns))
+  c = sample_colorscale('rainbow', list(x), colortype='rgb')
+  rgb_to_rgba = lambda x: "rgba" + x[3:-1] + ", 0.05)"
 
-Combined emphasis with **asterisks and _underscores_**.
+  fig = make_subplots(2, 1, shared_xaxes=True, shared_yaxes=False, subplot_titles=("Plot 1", "Plot 2",), vertical_spacing=0.1,)
+  names = {'Plot 1':'Autocorrelation (ACF)', 'Plot 2':'Partial Autocorrelation (PACF)'}
+  nlags = 50
 
-Strikethrough uses two tildes. ~~Scratch this.~~
+  for j, func in zip(range(1,3), [acf, pacf]):
+      for i, column in enumerate(target_data.columns.to_list()):
+          series = target_data[column]
+          corr_array = func(series, alpha=0.05, nlags=nlags)
+          lower_y = corr_array[1][:,0] - corr_array[0]
+          upper_y = corr_array[1][:,1] - corr_array[0]
+          fig.add_scatter(x=np.arange(len(corr_array[0])), y=corr_array[0], mode='markers', marker_color=c[i],
+                          marker_size=12, name=column, row=j, col=1)
+          [fig.add_scatter(x=(x,x), y=(0,corr_array[0][x]), mode='lines', line_color='#3f3f3f',line_width=0.1, name=column, row=j, col=1) 
+                  for x in range(len(corr_array[0]))]
+          fig.add_scatter(x=np.arange(len(corr_array[0])), y=upper_y, mode='lines', line_color=rgb_to_rgba(c[i]), name=column, row=j, col=1)
+          fig.add_scatter(x=np.arange(len(corr_array[0])), y=lower_y, mode='lines', fillcolor=rgb_to_rgba(c[i]), name=column,
+                  fill='tonexty', line_color=rgb_to_rgba(c[i]), row=j, col=1)
+  fig.update_traces(showlegend=False)
+  fig.update_xaxes(range=[-1,50])
+  fig.update_yaxes(zerolinecolor='#000000')
+  fig.update_layout(
+      title_text="ACF and PACF",
+      xaxis2_title="Time lag, [days]",
+      yaxis_title="ACF, [pu]",
+      yaxis2_title="PACF, [pu]",
+      legend_title="Legend",
+      showlegend = False,
+      width=800,
+      height=800,
+      font=dict(family="Gravitas One", size=12, color="black"),
+  )
+  fig.for_each_annotation(lambda a: a.update(text = names[a.text]))
+  fig.show()
+  ```
 
-1. First ordered list item
-2. Another item
-⋅⋅* Unordered sub-list.
-1. Actual numbers don't matter, just that it's a number
-⋅⋅1. Ordered sub-list
-4. And another item.
-
-⋅⋅⋅You can have properly indented paragraphs within list items. Notice the blank line above, and the leading spaces (at least one, but we'll use three here to also align the raw Markdown).
-
-⋅⋅⋅To have a line break without a paragraph, you will need to use two trailing spaces.⋅⋅
-⋅⋅⋅Note that this line is separate, but within the same paragraph.⋅⋅
-⋅⋅⋅(This is contrary to the typical GFM line break behaviour, where trailing spaces are not required.)
-
-* Unordered list can use asterisks
-- Or minuses
-+ Or pluses
-
-[I'm an inline-style link](https://www.google.com)
-
-[I'm an inline-style link with title](https://www.google.com "Google's Homepage")
-
-[I'm a reference-style link][Arbitrary case-insensitive reference text]
-
-[I'm a relative reference to a repository file](../blob/master/LICENSE)
-
-[You can use numbers for reference-style link definitions][1]
-
-Or leave it empty and use the [link text itself].
-
-URLs and URLs in angle brackets will automatically get turned into links.
-http://www.example.com or <http://www.example.com> and sometimes
-example.com (but not on Github, for example).
-
-Some text to show that the reference links can follow later.
-
-[arbitrary case-insensitive reference text]: https://www.mozilla.org
-[1]: http://slashdot.org
-[link text itself]: http://www.reddit.com
-
-Here's our logo (hover to see the title text):
-
-Inline-style:
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
-
-Reference-style:
-![alt text][logo]
-
-[logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 2"
-
-Inline `code` has `back-ticks around` it.
-
-```javascript
-var s = "JavaScript syntax highlighting";
-alert(s);
-```
-
-```python
-s = "Python syntax highlighting"
-print s
-```
-
-```
-No language indicated, so no syntax highlighting.
-But let's throw in a <b>tag</b>.
-```
-
-Colons can be used to align columns.
-
-| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
-
-There must be at least 3 dashes separating each header cell.
-The outer pipes (|) are optional, and you don't need to make the
-raw Markdown line up prettily. You can also use inline Markdown.
-
-Markdown | Less | Pretty
---- | --- | ---
-*Still* | `renders` | **nicely**
-1 | 2 | 3
-
-> Blockquotes are very handy in email to emulate reply text.
-> This line is part of the same quote.
-
-Quote break.
-
-> This is a very long line that will still be quoted properly when it wraps. Oh boy let's keep writing to make sure this is long enough to actually wrap for everyone. Oh, you can *put* **Markdown** into a blockquote.
+</details>
 
 
-Here's a line for us to start with.
+#### 3D autocorrelation plot 
 
-This line is separated from the one above by two newlines, so it will be a *separate paragraph*.
+<div class="l-page-outset">
+  <iframe src="{{ '/assets/plotly/eda/acf_pacf_3d.html' | relative_url }}" frameborder='0' scrolling='no' height="550px" width="110%" style="border: 1px dashed grey;"></iframe>
+</div>
 
-This line is also a separate paragraph, but...
-This line is only separated by a single newline, so it's a separate line in the *same paragraph*.
+
+<details>
+  <summary markdown="span">Click me to see the code</summary>
+
+##### 3D autocorrelation plot code
+
+  ```python
+  fig = make_subplots(
+    1,
+    2,
+    shared_xaxes=False,
+    shared_yaxes=False,
+    subplot_titles=(
+        "Plot 1",
+        "Plot 2",
+    ),
+    # horizontal_spacing=0.5,
+    specs=[[{"type": "surface"}, {"type": "surface"}]],
+)
+names = {"Plot 1": "Autocorrelation (ACF)", "Plot 2": "Partial Autocorrelation (PACF)"}
+
+
+fig.add_trace(
+    go.Surface(z=df_acf.values, x=df_acf.columns, y=df_acf.index, showscale=True),
+    row=1,
+    col=1,
+)
+
+fig.add_trace(
+    go.Surface(z=df_pacf.values, x=df_pacf.columns, y=df_pacf.index, showscale=True),
+    row=1,
+    col=2,
+)
+
+fig.update_layout(
+    title="3d ACF and PACF",
+    autosize=True,
+    width=1200,
+    height=600,
+    margin=dict(l=65, r=50, b=105, t=90),
+    scene=dict(
+        xaxis_title="Ticker, [idx]",
+        yaxis_title="Time lag, [days]",
+        zaxis_title="ACF",
+    ),
+    scene2=dict(
+        xaxis_title="Ticker, [idx]",
+        yaxis_title="Time lag, [days]",
+        zaxis_title="PACF",
+    ),
+    font=dict(family="Gravitas One", size=12, color="black"),
+)
+fig.update_traces(
+    contours_z=dict(
+        show=True, usecolormap=True, highlightcolor="limegreen", project_z=True
+    )
+)
+fig.for_each_annotation(lambda a: a.update(text=names[a.text]))
+
+fig.show()
+  ```
+
+</details>
+
+
+### Scatter polar plot
+
+A scatter polar plot is a type of data visualization that combines a scatter plot and a polar plot. It is used to display the relationship between two variables, where one variable is represented by a radial distance from the origin, and the other variable is represented by an angle around the origin. Scatter polar plots are useful for displaying the relationships between two cyclic variables, such as wind direction and wind speed, or for displaying the distribution of data in polar coordinates.
+
+<div class="l-body-outset">
+  <iframe src="{{ '/assets/plotly/eda/scatterpolar.html' | relative_url }}" frameborder='0' scrolling='no' height="550px" width="110%" style="border: 1px dashed grey;"></iframe>
+</div>
+
+
+<details>
+  <summary markdown="span">Click me to see the code</summary>
+
+##### Scatter polar
+
+  ```python
+from sklearn.preprocessing import FunctionTransformer
+
+def sin_transformer(period):
+    return FunctionTransformer(lambda x: np.sin(x / period * np.pi / 2) * 360)
+
+def cos_transformer(period):
+    return FunctionTransformer(lambda x: np.cos(x / period * np.pi / 2) * 360)
+
+test_df = target_data.dropna().copy()
+test_df["dayofweek"] = test_df.index.dayofweek
+test_df["dayofyear"] = test_df.index.dayofyear
+
+test_df["sin_dayofyear"] = sin_transformer(365).fit_transform(test_df["dayofyear"])
+test_df["cos_dayofyear"] = cos_transformer(365).fit_transform(test_df["dayofyear"])
+test_df = test_df[test_df.index.year == 2022]
+names = {'Plot 1':'Cos(f)', 'Plot 2':'Sin(f)'}
+
+fig = make_subplots(
+    1,
+    2,
+    shared_xaxes=False,
+    shared_yaxes=False,
+    subplot_titles=(
+        "Plot 1",
+        "Plot 2",
+    ),
+    horizontal_spacing=0.1,
+    specs=[[{"type": "scatterpolar"}, {"type": "scatterpolar"}]],
+
+)
+
+for column in target_data.columns.to_list():
+    fig.add_trace(
+        go.Scatterpolar(
+            r=test_df[column],
+            theta=test_df["cos_dayofyear"],
+            mode="lines",
+            name=column,
+        ),
+        row=1,
+        col=1,
+    )
+    fig.add_trace(
+        go.Scatterpolar(
+            r=test_df[column],
+            theta=test_df["sin_dayofyear"],
+            mode="lines",
+            name=column,
+        ),
+        row=1,
+        col=2,
+    )
+
+fig.update_layout(    
+    title_text="Scatter polar",
+    showlegend=False, 
+    width=1000,
+    height=600,
+    font=dict(family="Gravitas One", size=12, color="black"),)
+fig.for_each_annotation(lambda a: a.update(text = names[a.text]))
+
+fig.show()
+  ```
+
+</details>
+
+### Lagged scatter plot
+
+A lagged scatter plot is a type of data visualization that is used to analyze the relationships between the values of a time-series data. A lagged scatter plot displays the relationship between the values of a time-series data and its lagged values, with the lagged values representing the values of the time-series data at previous time steps.
+
+Here are some key steps for interpreting a lagged scatter plot:
+
+  1. **Identify the trend**: Look for overall patterns in the data. If the data points form a clear diagonal line from the bottom left to the top right of the plot, it indicates a positive relationship between the values and their lags. If the data points form a clear diagonal line from the top left to the bottom right, it indicates a negative relationship.
+
+  2. **Identify the strength of the relationship**: The strength of the relationship between the values and their lags can be estimated by the degree of clustering of the data points. A tight cluster of data points indicates a strong relationship, while a dispersed scatter of data points indicates a weak relationship.
+
+  3. **Identify the seasonality**: If the data points form clear clusters at regular intervals, it indicates a seasonal pattern in the data. The number of clusters can be used to determine the frequency of the seasonality.
+
+  4. **Identify the appropriate number of lags**: The appropriate number of lags to include in a time-series model can be determined by the number of lags that have a significant relationship with the values. A significant relationship can be determined by statistical tests or by visual inspection of the autocerration plot.
+
+<div class="l-body-outset">
+  <iframe src="{{ '/assets/plotly/eda/lag_plot.html' | relative_url }}" frameborder='0' scrolling='no' height="850px" width="100%" style="border: 1px dashed grey;"></iframe>
+</div>
+
+
+<details>
+  <summary markdown="span">Click me to see the code</summary>
+
+##### Lagged scatter plot
+
+  ```python
+ import itertools
+from plotly.express.colors import sample_colorscale
+
+df = target_data.iloc[-20:]
+x = np.linspace(0, 1, len(df.columns))
+c = sample_colorscale('rainbow', list(x), colortype='rgb')
+locs = [i for i in itertools.product(range(1,4), repeat=2)]
+
+fig = make_subplots(3, 3, shared_xaxes=True, shared_yaxes=True, 
+                    subplot_titles=[f"Lag {i}" for i in range(1,10)], 
+                    vertical_spacing=0.05, horizontal_spacing=0.05,)
+
+for i, column in enumerate(df.columns.to_list()):
+    series = df[column]  
+    for lag in range(1, 10):
+        lag_series = series.shift(lag)
+        fig.add_scatter(x=lag_series.values[lag:], y=series.values[lag:], 
+                        mode='markers', marker_color=c[i], 
+                        legendgroup=column, 
+                        name=column, 
+                        marker_size=6, row=locs[lag-1][0], col=locs[lag-1][1],
+                        showlegend=True if lag==1 else False)
+fig.update_layout(
+    title="Lag plot",
+    width=800,
+    height=800,
+    font=dict(family="Gravitas One", size=12, color="black"),
+)
+
+fig.update_yaxes(title="Actual", row=2, col=1)
+fig.update_xaxes(title="Shifted", row=3, col=2)
+fig.show()
+  ```
+
+</details>
+
+### Seasonal decomposition plot
+
+Seasonal decomposition is a statistical technique used to separate a time-series data into its components: trend, seasonality, and residuals. The goal of seasonal decomposition is to isolate the trend and seasonality of a time-series data so that they can be modeled and forecasted separately.
+
+A seasonal decomposition plot, also known as a seasonal decomposition of time series (STL) plot, is a visual representation of the results of the seasonal decomposition of a time-series data. It typically shows the original time-series data, the estimated trend, the estimated seasonality, and the residuals.
+
+Here are some key features of a seasonal decomposition plot:
+
+  * **Trend**: The trend represents the underlying pattern in the data, excluding the seasonality and the residuals. It can be used to make predictions about the future values of the time-series data.
+
+  * **Seasonality**: The seasonality represents the repeating pattern in the data, such as daily, weekly, or yearly patterns. It can be used to make predictions about the future values of the time-series data based on the seasonality.
+
+  * **Residuals**: The residuals represent the difference between the observed values and the estimated values based on the trend and seasonality. It can be used to assess the quality of the trend and seasonality estimates.
+
+By analyzing the trend, seasonality, and residuals, a seasonal decomposition plot can provide valuable information about the structure of the time-series data, which can be used to make informed decisions about how to model and forecast the data.
+
+<div class="l-body-outset">
+  <iframe src="{{ '/assets/plotly/eda/seasonal.html' | relative_url }}" frameborder='0' scrolling='no' height="780px" width="100%" style="border: 1px dashed grey;"></iframe>
+</div>
+
+
+<details>
+  <summary markdown="span">Click me to see the code</summary>
+
+##### Seasonal decomposition plot
+
+  ```python
+from plotly.subplots import make_subplots
+import itertools
+from statsmodels.tsa.seasonal import seasonal_decompose
+
+df_tsa = apply_to_dataframe(
+    target_data,
+    func=partial(seasonal_decompose, model="additive", period=20),
+    axis=0,
+)
+results = ["observed", "trend", "resid", "seasonal"]
+cbarlocs = [0.85, 0.5, 0.15, 0.0]
+
+fig = make_subplots(
+    4,
+    1,
+    horizontal_spacing=0.0,
+    shared_xaxes=True,
+    shared_yaxes=False,
+    subplot_titles=(
+        "Observed",
+        "Trend",
+        "Residuals",
+        "Seasonal",
+    ),
+)
+
+for idx, attr in zip(list(range(1, 5)), results):
+    data = pd.concat(
+        [
+            getattr(df_tsa[column], attr)
+            for column in target_data.columns.to_list()[::-1]
+        ],
+        axis=1,
+    )
+    data.columns = target_data.columns.to_list()[::-1]
+    fig.add_trace(
+        go.Heatmap(
+            z=data.values,
+            y=data.columns,
+            name=column,
+            coloraxis="coloraxis",
+        ),
+        row=idx,
+        col=1,
+    )
+
+fig.update_layout(
+    title="Seasonal decomposition",
+    showlegend=True,
+    width=800,
+    height=800,
+    coloraxis=dict(colorscale="Plasma", colorbar_x=1.02, colorbar_thickness=20),
+    margin=dict(l=50, r=0, t=50, b=50),
+    font=dict(family="Gravitas One", size=12, color="black"),
+    yaxis1=dict(tickfont=dict(family="Helvetica", size=8, color="black")),
+    yaxis2=dict(tickfont=dict(family="Helvetica", size=8, color="black")),
+    yaxis3=dict(tickfont=dict(family="Helvetica", size=8, color="black")),
+    yaxis4=dict(tickfont=dict(family="Helvetica", size=8, color="black")),
+)
+
+fig.show()
+  ```
+
+</details>
+
+## Spatial analysis
+
+The goal of spatial analysis is to understand the relationships and patterns between the variables in a dataset.
+
+### Correlation plot
+
+A correlation plot is a type of plot used to visualize the relationship between two variables. It is often used to assess the strength and direction of the relationship between the variables. The goal of a correlation plot is to determine whether there is a relationship between the variables and, if so, to characterize the nature of that relationship.
+
+The strength of the relationship between the variables can be assessed by the correlation coefficient, which is a measure of the strength and direction of the linear relationship between the variables. A correlation coefficient of +1 indicates a perfect positive relationship, meaning that as one variable increases, the other variable also increases. A correlation coefficient of -1 indicates a perfect negative relationship, meaning that as one variable increases, the other variable decreases. A correlation coefficient of 0 indicates that there is no relationship between the variables.
+
+<div class="l-body">
+  <iframe src="{{ '/assets/plotly/eda/correlation.html' | relative_url }}" frameborder='0' scrolling='no' height="600px" width="100%" style="border: 1px dashed grey;"></iframe>
+</div>
+
+
+<details>
+  <summary markdown="span">Click me to see the code</summary>
+
+##### Correlation plot
+
+  ```python
+import plotly.graph_objects as go
+import numpy as np
+
+df = target_data.copy()
+corr = df.corr()
+mask = np.triu(np.ones_like(corr, dtype=bool))
+
+data = go.Heatmap(
+        z=corr.mask(mask),
+        x=corr.columns,
+        y=corr.columns,
+        colorscale=px.colors.diverging.RdBu,
+        zmin=-1,
+        zmax=1,
+)
+
+layout = go.Layout(
+    title_text='Asset Correlation Matrix', 
+    title_x=0.5, 
+    width=600, 
+    height=600,
+    xaxis_showgrid=False,
+    yaxis_showgrid=False,
+      yaxis_autorange='reversed'
+)
+
+fig=go.Figure(data=[data], layout=layout)
+fig.update_layout(
+   yaxis = dict(
+      tickfont=dict(family='Helvetica', size=6, color='black')
+      ),
+   xaxis = dict(
+      tickfont=dict(family='Helvetica', size=6, color='black')
+      )
+)
+fig.show()
+  ```
+
+</details>
+
+
+### PPscore plot
+
+The PPS is an asymmetric, data-type-agnostic score that can detect linear or non-linear relationships between two variables. The score ranges from 0 (no predictive power) to 1 (perfect predictive power). It can be used as an alternative to the correlation (matrix). The score is calculated using one variable trying to predict the target variable. In python, PP score can be calculated using [ppscore](https://pypi.org/project/ppscore/) library.
+
+<div class="l-body">
+  <iframe src="{{ '/assets/plotly/eda/ppscore.html' | relative_url }}" frameborder='0' scrolling='no' height="600px" width="100%" style="border: 1px dashed grey;"></iframe>
+</div>
+
+
+<details>
+  <summary markdown="span">Click me to see the code</summary>
+
+##### PPscore plot
+
+  ```python
+import ppscore as pps
+import seaborn as sns
+matrix_df = pps.matrix(target_data.dropna())[['x', 'y', 'ppscore']].pivot(columns='x', index='y', values='ppscore')
+
+mask = np.triu(np.ones_like(matrix_df, dtype=bool))
+data = go.Heatmap(
+        z=matrix_df.mask(mask),
+        x=matrix_df.columns,
+        y=matrix_df.columns,
+        colorscale=px.colors.sequential.Blues,
+        zmin=0,
+        zmax=1,
+)
+
+layout = go.Layout(
+    title_text='Asset PPsore Matrix', 
+    title_x=0.5, 
+    width=600, 
+    height=600,
+    xaxis_showgrid=False,
+    yaxis_showgrid=False,
+      yaxis_autorange='reversed'
+)
+
+fig=go.Figure(data=[data], layout=layout)
+fig.update_layout(
+   yaxis = dict(
+      tickfont=dict(family='Helvetica', size=6, color='black')
+      ),
+   xaxis = dict(
+      tickfont=dict(family='Helvetica', size=6, color='black')
+      )
+)
+fig.show()
+  ```
+
+</details>
+
+
+{::options parse_block_html="false" /}
+
+
+
+#### Further reading
+
+These are some of the most popular figures for multivariate visualization, but other types of figures can also be used depending on the specific data and analysis needs. 
+
+  - [Exploratory Spatio-temporal Data Analysis and Visualisation (with R)](https://laurentlsantos.github.io/forecasting/exploratory-spatio-temporal-data-analysis-and-visualisation.html)
+
+[![Generic badge](https://img.shields.io/badge/License-MIT-blue.svg?style=plastic)](https://lbesson.mit-license.org/) [![Generic badge](https://img.shields.io/badge/acces_au_code-github-black.svg?style=plastic&logo=github)](https://github.com/aleksei-mashlakov)
