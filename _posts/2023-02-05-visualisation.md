@@ -2,7 +2,7 @@
 layout: distill
 title: Exploratory data analysis of mutivariate time series data
 description: The secret to interactive visualization with plotly
-giscus_comments: false
+giscus_comments: true
 date: 2023-02-05
 tag: visualisation
 

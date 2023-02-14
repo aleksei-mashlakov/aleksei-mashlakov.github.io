@@ -8,6 +8,7 @@ tags:
   - news
   - maesha
 inline: false
+giscus_comments: true
 ---
 
 Review meeting of the first 18 months of the MAESHA project at Technische Universität Berlin.
