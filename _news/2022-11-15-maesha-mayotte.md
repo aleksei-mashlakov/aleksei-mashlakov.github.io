@@ -6,6 +6,7 @@ tags:
   - h2020
   - maesha
 inline: false
+giscus_comments: true
 ---
 
 A guided tour to `Albioma's battery energy storage (7.4 MW/ 14.9 MWh)`, providing peak load shifting and frequency control and `Longoni power plant` (composed of Longoni I, 39 MW

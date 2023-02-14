@@ -7,6 +7,7 @@ tags:
   - h2020
   - maesha
 inline: false
+giscus_comments: true
 ---
 
 Round tables co-organised by the GIFT and MAESHA European projects on System architecture and interoperability to achieve grid flexibility on islands.
