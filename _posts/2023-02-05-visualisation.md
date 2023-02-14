@@ -66,9 +66,7 @@ This post describes the types of visualisation for exploratory multivariate time
 
 ### Exploratory multivariate data analysis
 
-**Multivariate time series data** refers to a set of observations of multiple variables measured over time. It is a type of data that is characterized by multiple variables recorded at regular intervals, such as daily, weekly, or monthly. In contrast to univariate time series data, which only contains observations for a single variable, multivariate time series data contains observations for multiple variables.
-
-For example, a multivariate time series dataset might contain observations of temperature, rainfall, and wind speed recorded daily for a particular region or multiple areas over the course of several years. Each observation in the dataset would contain values for all three variables at a given time, and the data would be ordered by time.
+**Multivariate time series data** refers to a set of observations of multiple variables measured over time. It is a type of data that is characterized by multiple variables recorded at regular intervals, such as daily, weekly, or monthly. In contrast to univariate time series data, which only contains observations for a single variable, multivariate time series data contains observations for multiple variables. For example, a multivariate time series dataset might contain observations of temperature, rainfall, and wind speed recorded daily for a particular region or multiple areas over the course of several years. Each observation in the dataset would contain values for all three variables at a given time, and the data would be ordered by time.
 
 **Exploratory multivariate data analysis** is a type of statistical analysis that aims to summarize, visualize and understand complex relationships among multiple variables in a dataset. The goal of exploratory multivariate data analysis is to uncover patterns, relationships, and insights that may not be evident or hard to get from univariate or bivariate analyses. This analysis helps to identify patterns, relationships, and anomalies that are specific to certain variables and time periods.
 
@@ -192,8 +190,6 @@ fig.show()
 </details>
 
 ### Ridge/Joy plot
-
-Ridge/Joy plot grouped by months
 
 A Ridge or Joy plot is a type of data visualization that displays a set of overlapping line segments to represent the distribution of a set of continuous or ordinal data. The plot is named after its inventor, Norman B. Joy, who first introduced it in the 1930s.
 
@@ -862,7 +858,7 @@ Here are some key steps for interpreting a lagged scatter plot:
 
   3. **Identify the seasonality**: If the data points form clear clusters at regular intervals, it indicates a seasonal pattern in the data. The number of clusters can be used to determine the frequency of the seasonality.
 
-  4. **Identify the appropriate number of lags**: The appropriate number of lags to include in a time-series model can be determined by the number of lags that have a significant relationship with the values. A significant relationship can be determined by statistical tests or by visual inspection of the autocerration plot.
+  4. **Identify the appropriate number of lags**: The appropriate number of lags to include in a time-series model can be determined by the number of lags that have a significant relationship with the values. A significant relationship can be determined by statistical tests or by visual inspection of the autocorrelation plot.
 
 <div class="l-body-outset">
   <iframe src="{{ '/assets/plotly/eda/lag_plot.html' | relative_url }}" frameborder='0' scrolling='no' height="850px" width="100%" style="border: 1px dashed grey;"></iframe>
