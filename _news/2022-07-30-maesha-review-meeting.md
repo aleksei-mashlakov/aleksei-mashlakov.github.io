@@ -1,12 +1,13 @@
 ---
 layout: post
-title: 'MAESHA review meeting at Technische Universität Berlin'
+title: MAESHA review meeting at Technische Universität Berlin
 date: 2022-07-30
 tags:
   - meetings
   - h2020
   - news
   - maesha
+# categories: sample-posts external-services
 inline: false
 giscus_comments: true
 ---
@@ -26,4 +27,4 @@ Review meeting of the first 18 months of the MAESHA project at Technische Univer
   <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:6954832766479818752" frameborder='0' scrolling='no' height="500px" width="100%" style="border: 1px dashed grey;"></iframe>
 </div>
 
-Source: [MAESHA Linkedin](https://www.linkedin.com/posts/h2020-maesha_mayotte-activity-6954832767419355136-qWIa?utm_source=linkedin_share&utm_medium=member_desktop_web) 
+Source: [MAESHA Linkedin](https://www.linkedin.com/posts/h2020-maesha_mayotte-activity-6954832767419355136-qWIa?utm_source=linkedin_share&utm_medium=member_desktop_web)
