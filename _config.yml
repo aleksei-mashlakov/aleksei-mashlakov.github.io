@@ -96,6 +96,7 @@ instagram_id: rexsovietskiy # your instagram id
 facebook_id: # your facebook id
 youtube_id: # your youtube channel id (youtube.com/@<youtube_id>)
 discord_id: # your discord id (18-digit unique numerical identifier)
+#  buymeacoffee: "amashlakov"
 
 contact_note: >
   Reach me via LinkedIn.
@@ -116,7 +117,7 @@ bing_site_verification:  # out your bing-site-verification ID (Bing Webmaster)
 
 blog_name: trailblazer-stroll # blog_name will be displayed in your blog page
 blog_nav_title: blog # your blog must have a title for it to be displayed in the nav bar
-blog_description: Post related to the things that i work with or inspire me
+blog_description: A trailblazer stroll in pursuit of energy flexibility
 permalink: /blog/:year/:title/
 
 # Pagination
