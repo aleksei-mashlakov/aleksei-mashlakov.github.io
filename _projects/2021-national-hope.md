@@ -10,7 +10,7 @@ description: "Highly optimized energy systems"
 # location: "Lapppeenranta, Finland"
 # url: "https://lutpub.lut.fi/handle/10024/159974"
 # excerpt: "Integrated business platform of distributed energy resources<br/><img src='/images/heila_lut_logo_black.png' width='300'>"
-img: assets/img/der/wind.jpg
+img: assets/img/hope/background.jpg
 # importance: 2
 category: work
 ---
