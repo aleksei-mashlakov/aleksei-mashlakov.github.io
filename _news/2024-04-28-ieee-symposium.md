@@ -23,7 +23,10 @@ Had an awesome time presenting at the 19th IEEE Power Symposium 'Energy Flexibil
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/centrica/ieee_power_symposium.png" title="Empowering Prosumer Flexibility Through the Aggregators" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/ieee_symposium/ieee_power_symposium.png" title="Empowering Prosumer Flexibility Through the Aggregators" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/ieee_symposium/ieee_group_photo.jpeg" title="Lab" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
