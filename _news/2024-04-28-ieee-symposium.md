@@ -1,6 +1,6 @@
 ---
 layout: post
-title: '19th IEEE Power Symposium 'Energy Flexibility - Close to the Consumer' :mega:'
+title: '19th IEEE Power Symposium "Energy Flexibility - Close to the Consumer" :mega:'
 date: 2024-04-28
 tags:
   - speaker
