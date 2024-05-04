@@ -22,13 +22,14 @@ authors:
 #   - we may want to automate TOC generation in the future using
 #     jekyll-toc plugin (https://github.com/toshimaru/jekyll-toc).
 toc:
-  - name: Introduction
-    subsections:
-      - name: M-series competition
-      - name: M6 Competition
-  - name: Forecasting
-  - name: Investment
-  - name: Conclusion
+  sidebar: left
+  # - name: Introduction
+  #   subsections:
+  #     - name: M-series competition
+  #     - name: M6 Competition
+  # - name: Forecasting
+  # - name: Investment
+  # - name: Conclusion
 ---
 
 <div class="row justify-content-sm-center">

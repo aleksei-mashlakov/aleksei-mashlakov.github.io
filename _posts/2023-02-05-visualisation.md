@@ -22,31 +22,32 @@ authors:
 #   - we may want to automate TOC generation in the future using
 #     jekyll-toc plugin (https://github.com/toshimaru/jekyll-toc).
 toc:
-  - name: Motivation
-    subsections:
-      - name: Exploratory multivariate data analysis
-      - name: Multivariate time series visualization
-      - name: Types of exploratory analysis
-  - name: Data
-  - name: Distributional analysis
-    subsections:
-      - name: Box plot
-      - name: Ridge/Joy plot
-      - name: Mean/Var plot
-      - name: Q-Q plot
-      - name: Histogram plot
-  - name: Temporal analysis
-    subsections:
-      - name: Line plot with sliding window
-      - name: Heatmap plot
-      - name: Autocorrelation plots
-      - name: Scatter polar plot
-      - name: Lagged scatter plot
-      - name: Seasonal decomposition plot
-  - name: Spatial analysis
-    subsections:
-      - name: Correlation plot
-      - name: PPscore plot
+  sidebar: left
+  # - name: Motivation
+  #   subsections:
+  #     - name: Exploratory multivariate data analysis
+  #     - name: Multivariate time series visualization
+  #     - name: Types of exploratory analysis
+  # - name: Data
+  # - name: Distributional analysis
+  #   subsections:
+  #     - name: Box plot
+  #     - name: Ridge/Joy plot
+  #     - name: Mean/Var plot
+  #     - name: Q-Q plot
+  #     - name: Histogram plot
+  # - name: Temporal analysis
+  #   subsections:
+  #     - name: Line plot with sliding window
+  #     - name: Heatmap plot
+  #     - name: Autocorrelation plots
+  #     - name: Scatter polar plot
+  #     - name: Lagged scatter plot
+  #     - name: Seasonal decomposition plot
+  # - name: Spatial analysis
+  #   subsections:
+  #     - name: Correlation plot
+  #     - name: PPscore plot
 ---
 
 
