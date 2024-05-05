@@ -8,9 +8,7 @@
           <a class="navbar-brand title font-weight-lighter" href="{{ site.baseurl }}/">
             {%- if site.title == "blank" -%}
               {%- if site.icon != blank -%}
-                <link rel="icon" type="image/png" href="{{ site.icon | prepend: '/assets/img/' | relative_url}}"/>
-                <!-- <img src="{{ site.icon | prepend: '/assets/img/' | relative_url}}" alt="Icon" class="mr-2"> -->
-                <!-- <img src="/assets/img/mstile-70x70.png" alt="Icon" class="mr-2"> -->
+                <img src="{{ site.icon | prepend: '/assets/img/' | relative_url}}" alt="Icon" class="mr-2" width="100" height="40">
               {%- endif -%}
               {%- if site.first_name -%}                
                 <span class="font-weight-bold">{{- site.first_name -}}&nbsp;</span>
