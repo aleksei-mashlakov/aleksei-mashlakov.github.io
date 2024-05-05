@@ -19,7 +19,7 @@ selected_papers: false # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
 
-Hi there :waving:,
+Hi there :wave:,
 
 I am a Researcher in `Demand Side Response` / `Flexibility` with focus in the Energy Forecasting and Operations Research at `Centrica`. My goal is to explore the technological means to enable coordinated participation of small-scale energy resources in energy markets and grid ancillary services for a more flexible, cost-efficient, and reliable operation of a low-carbon power system.
 
