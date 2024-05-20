@@ -16,7 +16,7 @@ category: work
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.html path="assets/img/dominoes/771066_dominoes.jpeg" title="HEILA project concept" class="img-fluid rounded z-depth-1" width='500' %}
+        {% include figure.html path="assets/img/dominoes/771066_dominoes.jpeg" title="Dominoes project concept" class="img-fluid rounded z-depth-1" width='500' %}
     </div>
 </div>
 <div class="caption">
@@ -27,7 +27,7 @@ category: work
 
 ### Project objective
 
-`DOMINOES` (*"Smart Distribution Grid: a Market Driven Approach for the Next Generation of Advanced Operation Models and Services"*) project aimed to enable the discovery and development of new demand response, aggregation, grid management and peer-to-peer trading services by designing, developing, and validating a transparent and scalable `local energy market` solution.
+[`DOMINOES` (*"Smart Distribution Grid: a Market Driven Approach for the Next Generation of Advanced Operation Models and Services"*) project](https://cordis.europa.eu/project/id/771066) aimed to enable the discovery and development of new demand response, aggregation, grid management and peer-to-peer trading services by designing, developing, and validating a transparent and scalable `local energy market` solution.
 
 ***
 
@@ -41,4 +41,4 @@ It is a European research project supported by Horizon 2020 and developed by `En
 
 I was involved into the integration of LUT LVDC microgrids’ energy management systems (`EMSs`) to the local market service platform (`LMSP`) for validation of use case (UC) 5 “Local community flexibility and energy asset management for wholesale and energy system market value”. In this scenario, the aggregator offers flexibility of microgrids (`prosumers`) for sale to reserve markets through the local energy and flexibility market (`LEFM`). 
 
-To integrate and validate the microgrids’ EMSs into the local market service platform (LMSP) environment, I have developed components of the aggregator platform including forecast, simulation & optimization, control, and settlement services. The results of the use case validation and description of the developed services are presented in [D4.3 Distribution Grid and Microgrid Validation Activities Report](http://dominoesproject.eu/wp-content/uploads/2021/07/D4.4_DOMINOES_-Distribution-gird-and-microgrid-validation-activities-report.pdf).
+To integrate and validate the microgrids’ EMSs into the local market service platform (LMSP) environment, I have developed components of the aggregator platform including forecast, simulation & optimization, control, and settlement services. The results of the use case validation and description of the developed services are presented in [D4.4 Distribution Grid and Microgrid Validation Activities Report](https://ec.europa.eu/research/participants/documents/downloadPublic?documentIds=080166e5df2a964e&appId=PPGMS).
