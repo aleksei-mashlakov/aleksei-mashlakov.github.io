@@ -6,7 +6,7 @@
     - name: Date of Birth
       value: 5th April
     - name: Languages
-      value: English, Russian, Spanish
+      value: English #, Russian, Spanish
 
 - title: Education
   type: time_table
@@ -31,9 +31,20 @@
 - title: Experience
   type: time_table
   contents:
+    - title: Tech Lead
+      institution: Centrica, Antwerp, Belgium
+      year: 2023 -
+      # description:
+      #   - Description 1.
+      #   - Description 2.
+      #   - title: Description 3.
+      #     contents:
+      #       - Sub-description 1.
+      #       - Sub-description 2.
+
     - title: Innovation Specialist
       institution: Centrica, Antwerp, Belgium
-      year: 2022 -
+      year: 2022 - 2023
       # description:
       #   - Description 1.
       #   - Description 2.
@@ -48,7 +59,7 @@
       #   - Description 1.
       #   - Description 2.
 
-    - title: Junior Researcher
+    - title: Researcher
       institution: Lappeenranta-Lahti University of Technology, Lappeenranta, Finland
       year: 2017-2021
 
