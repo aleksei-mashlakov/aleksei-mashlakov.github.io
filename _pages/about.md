@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: Optimising Decentralised Energy @ Centrica
+subtitle: Optimising Decentralised Flex @ Centrica
 
 profile:
   align: right
@@ -24,7 +24,7 @@ Hi there :wave:,
 I work on the behind-the-meter `flexibility optimisation` with focus in the Energy Forecasting and Operations Research at `Centrica`. My professional goal is to contribute to the development of scalable algorithms coordinating participation of millions of small-scale energy resources in energy markets and grid ancillary services for a more flexible, cost-efficient, and reliable operation of a low-carbon power system.
 
 My main interests are in
-- Multi-agent spatio-temporal optimization
+- Sequential decision-making in power markets
 - Data-driven probabilistic energy forecasting
 - Power grid modeling
 - Energy informatics
