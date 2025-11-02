@@ -156,8 +156,15 @@ disqus_shortname: aleksei-mashlakov-github-io # put your disqus shortname
 # If you have blog posts published on medium.com or other external sources,
 # you can display them in your blog by adding a link to the RSS feed.
 external_sources:
-  # - name: substack
-  #   rss_url: https://alekseimashlakov.substack.com/feed
+  - name: substack
+    rss_url: https://alekseimashlakov.substack.com/feed
+  # - name: Substack
+  #   posts:
+  #     - url: https://alekseimashlakov.substack.com/p/ai-careers-in-the-decentralised-energy
+  #       published_date: 2025-09-14
+  #     - url: https://alekseimashlakov.substack.com/p/energy-forecasting-enters-the-marketplace
+  #       published_date: 2025-07-07
+
 
 # -----------------------------------------------------------------------------
 # Collections
