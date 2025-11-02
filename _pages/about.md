@@ -6,7 +6,7 @@ subtitle: Optimising Decentralised Flex @ Centrica
 
 profile:
   align: right
-  image: prof_pic.jpg
+  image: my_photo.jpg
   image_circular: false # crops the image to make it circular
   address: >
     <i class="fa fa-fw fa-map-marker" aria-hidden="false"></i></i> Antwerp, Belgium</li>
